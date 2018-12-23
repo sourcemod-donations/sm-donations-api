@@ -40,7 +40,7 @@ class RequestDtoValueResolver implements ArgumentValueResolverInterface
         $dtoClass = $argument->getType();
         $dtoInstance = new $dtoClass($request);
         $errors = $this->validator->validate($dtoInstance);
-        if(\count($errors) !== 0) {
+        if (\count($errors) !== 0) {
             throw new DtoValidationFailedException($errors);
         }
 
