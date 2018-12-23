@@ -18,7 +18,7 @@ class ExampleController extends AbstractController
     {
         $unused='nonPSR2Syntax';
         $unused='nonPSR2Syntax';
-        not ph p c o d e
+        no t ph p c o d e
 
         return new JsonResponse('ok');
     }
