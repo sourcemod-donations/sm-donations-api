@@ -18,7 +18,7 @@ class ExampleController extends AbstractController
     {
         $unused='nonPSR2Syntax';
         $unused='nonPSR2Syntax';
-        not php code
+        not php c ode
 
         return new JsonResponse('ok');
     }
