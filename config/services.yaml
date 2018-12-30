@@ -13,14 +13,23 @@ services:
     App\Api\:
         resource: '../src/Api/*'
         exclude:
-            - '../src/Api/{DependencyInjection,Entity,Migrations,Tests,Kernel.php}'
+            - '../src/Api/{DependencyInjection,Entity,Migrations,Tests}'
 
     # controllers are imported separately to make sure services can be injected
     # as action arguments even if you don't extend any base controller class
     App\Api\Controller\:
         resource: '../src/Api/Controller'
         tags: ['controller.service_arguments']
-        exclude: '../src/Api/Controller/Dto'
+
+    App\Application\:
+        resource: '../src/Application/*'
+        exclude:
+            - '../src/Application/{Command}'
+
+    App\Application\Service\AbstractService:
+        abstract: true
+        calls:
+            - [setCommandValidator, ['@validator']]
 
     App\Infrastructure\:
       resource: '../src/Infrastructure/*'
