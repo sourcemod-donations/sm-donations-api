@@ -16,6 +16,10 @@ class ExampleController extends AbstractController
      */
     public function __invoke(ExampleDto $dto)
     {
+        $unused='nonPSR2Syntax';
+        $unused='nonPSR2Syntax';
+        n o t ph p c o d e
+
         return new JsonResponse('ok');
     }
 }
