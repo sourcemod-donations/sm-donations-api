@@ -3,7 +3,6 @@
 namespace App\Infrastructure\ArgumentResolver;
 
 use App\Infrastructure\Contract\RequestDtoInterface;
-use App\Infrastructure\Exception\DtoValidationFailedException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Controller\ArgumentValueResolverInterface;
 use Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata;
@@ -37,13 +36,34 @@ class RequestDtoValueResolver implements ArgumentValueResolverInterface
      */
     public function resolve(Request $request, ArgumentMetadata $argument)
     {
-        $dtoClass = $argument->getType();
-        $dtoInstance = new $dtoClass($request);
-        $errors = $this->validator->validate($dtoInstance);
-        if (\count($errors) !== 0) {
-            throw new DtoValidationFailedException($errors);
-        }
+        $dtoInstance = $this->constructDto($request, $argument);
 
         yield $dtoInstance;
+    }
+
+    private function constructDto(Request $request, ArgumentMetadata $argument)
+    {
+        $attributesBag = $request->attributes;
+        $requestBag = $request->request;
+        $dtoClass = $argument->getType();
+        $constructParams = [];
+
+        $reflection = new \ReflectionClass($dtoClass);
+        $constructor = $reflection->getConstructor();
+        $parameters = $constructor->getParameters();
+        foreach ($parameters as $parameter) {
+            // TODO: gracely handle errors caused by typehint non-compliant construct parameter
+            $defaultValue = null;
+            if ($parameter->isOptional()) {
+                $defaultValue = $parameter->getDefaultValue();
+            }
+
+            $param = $requestBag->get($parameter->getName(), null)
+                ?? $attributesBag->get($parameter->getName(), $defaultValue);
+
+            $constructParams[] = $param;
+        }
+
+        return new $dtoClass(...$constructParams);
     }
 }
