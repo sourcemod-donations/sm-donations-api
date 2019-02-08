@@ -37,3 +37,9 @@ services:
     App\Infrastructure\ArgumentResolver\RequestDtoValueResolver:
         tags:
             - { name: controller.argument_value_resolver, priority: 50 }
+
+    App\Console\:
+        resource: '../src/Console/*'
+
+    SteamAuth\SteamOpenId:
+        factory: ['App\Application\Factory\SteamOpenIdFactory', create]
