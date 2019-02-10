@@ -85,14 +85,14 @@ class Product
 
     public function addServer(Server $server)
     {
-        if(!$this->servers->contains($server)) {
+        if (!$this->servers->contains($server)) {
             $this->servers->add($server);
         }
     }
 
     public function removeServer(Server $server)
     {
-        if($this->servers->contains($server)) {
+        if ($this->servers->contains($server)) {
             $this->servers->removeElement($server);
         }
     }

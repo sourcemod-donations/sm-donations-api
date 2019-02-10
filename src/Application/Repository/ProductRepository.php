@@ -28,7 +28,7 @@ class ProductRepository extends ServiceEntityRepository
     public function get(int $id): Product
     {
         $product = $this->find($id);
-        if(!$product) {
+        if (!$product) {
             throw new EntityNotFoundException(self::ENTITY_CLASS, $id);
         }
 
