@@ -2,6 +2,8 @@
 
 namespace App\Tests;
 
+use App\Application\Service\AbstractService;
+use App\Tests\Common\AlwaysValidCommandValidator;
 use PHPUnit\Framework\TestCase;
 
 class BaseTestCase extends TestCase
@@ -13,5 +15,12 @@ class BaseTestCase extends TestCase
     {
         parent::__construct($name, $data, $dataName);
         $this->faker = \Faker\Factory::create();
+    }
+
+    protected function setupService(AbstractService $service): AbstractService
+    {
+        $service->setCommandValidator(new AlwaysValidCommandValidator());
+
+        return $service;
     }
 }

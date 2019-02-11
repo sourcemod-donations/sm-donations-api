@@ -43,3 +43,6 @@ services:
 
     SteamAuth\SteamOpenId:
         factory: ['App\Application\Factory\SteamOpenIdFactory', create]
+
+    App\Application\Contract\CommandValidatorInterface:
+        class: App\Infrastructure\Validator\SymfonyValidatorCommandValidator

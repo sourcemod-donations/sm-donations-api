@@ -21,6 +21,11 @@ class SecurityUser implements UserInterface
         $this->user = $user;
     }
 
+    public function getUser()
+    {
+        return $this->user;
+    }
+
     /**
      * {@inheritdoc}
      */

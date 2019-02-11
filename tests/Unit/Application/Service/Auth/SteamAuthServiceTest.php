@@ -16,7 +16,7 @@ class SteamAuthServiceTest extends BaseTestCase
     /** @var MockObject|SteamOpenId */
     private $openIdMock;
 
-    public function setUp()
+    protected function setUp()
     {
         $this->openIdMock = $this->createMock(SteamOpenId::class);
         $this->service = new SteamAuthService($this->openIdMock);

@@ -2,19 +2,19 @@
 
 namespace App\Application\Service;
 
+use App\Application\Contract\CommandValidatorInterface;
 use App\Infrastructure\Exception\DtoValidationFailedException;
-use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class AbstractService
 {
-    /** @var ValidatorInterface */
+    /** @var CommandValidatorInterface */
     private $commandValidator;
 
     /**
      * @internal
      * @required
      */
-    public function setCommandValidator(ValidatorInterface $validator)
+    public function setCommandValidator(CommandValidatorInterface $validator)
     {
         $this->commandValidator = $validator;
     }
