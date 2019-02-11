@@ -46,7 +46,7 @@ class PurchaseProductServiceTest extends BaseTestCase
         $product = (new Product())->setPrice($this->faker->randomNumber(4));
         $this->productRepository->method('find')->willReturn($product);
 
-        $purchase = $this->service->__invoke(new PurchaseProductCommand(
+        $this->service->__invoke(new PurchaseProductCommand(
             0, // we've mocked productRepo->find, I don't like this, probably should use UUIDs to get id pre-persist
             $recipientSteamId
         ));
@@ -64,7 +64,7 @@ class PurchaseProductServiceTest extends BaseTestCase
 
         $this->expectException(\DomainException::class);
 
-        $purchase = $this->service->__invoke(new PurchaseProductCommand(
+        $this->service->__invoke(new PurchaseProductCommand(
             0
         ));
     }
