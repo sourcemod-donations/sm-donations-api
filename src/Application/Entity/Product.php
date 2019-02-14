@@ -41,6 +41,12 @@ class Product
      */
     private $servers;
 
+    /**
+     * @var array
+     * @ORM\Column(type="json_array")
+     */
+    private $deliveryConfiguration;
+
     public function __construct()
     {
         $this->servers = new ArrayCollection();
@@ -83,11 +89,13 @@ class Product
         return $this->servers;
     }
 
-    public function addServer(Server $server)
+    public function addServer(Server $server): self
     {
         if (!$this->servers->contains($server)) {
             $this->servers->add($server);
         }
+
+        return $this;
     }
 
     public function removeServer(Server $server)
@@ -95,5 +103,17 @@ class Product
         if ($this->servers->contains($server)) {
             $this->servers->removeElement($server);
         }
+    }
+
+    public function getDeliveryConfiguration(): array
+    {
+        return $this->deliveryConfiguration;
+    }
+
+    public function setDeliveryConfiguration(array $deliveryConfiguration): self
+    {
+        $this->deliveryConfiguration = $deliveryConfiguration;
+
+        return $this;
     }
 }

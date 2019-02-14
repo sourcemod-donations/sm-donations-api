@@ -23,6 +23,12 @@ class Server
      */
     private $name;
 
+    /**
+     * @var array
+     * @ORM\Column(type="json_array")
+     */
+    private $deliveryConfiguration;
+
     public function getId(): int
     {
         return $this->id;
@@ -36,6 +42,18 @@ class Server
     public function setName(string $name): self
     {
         $this->name = $name;
+
+        return $this;
+    }
+
+    public function getDeliveryConfiguration(): array
+    {
+        return $this->deliveryConfiguration;
+    }
+
+    public function setDeliveryConfiguration(array $deliveryConfiguration): self
+    {
+        $this->deliveryConfiguration = $deliveryConfiguration;
 
         return $this;
     }

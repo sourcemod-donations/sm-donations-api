@@ -39,7 +39,7 @@ class Purchase
 
     /**
      * @var int|null
-     * @ORM\Column(type="bigint", nullable=true)
+     * @ORM\Column(type="bigint")
      */
     private $recipientSteamId;
 
@@ -68,7 +68,7 @@ class Purchase
     /**
      * @param Product[] $products
      */
-    public function __construct(array $products, ?User $buyer = null, ?int $recipientSteamId = null)
+    public function __construct(array $products, int $recipientSteamId, ?User $buyer = null)
     {
         $this->buyer = $buyer;
         $this->recipientSteamId = $recipientSteamId;
@@ -124,5 +124,10 @@ class Purchase
     public function getCreatedAt(): DateTimeInterface
     {
         return $this->createdAt;
+    }
+
+    public function getRecipientSteamId(): ?int
+    {
+        return $this->recipientSteamId;
     }
 }
